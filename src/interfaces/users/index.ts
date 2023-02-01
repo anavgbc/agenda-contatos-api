@@ -12,5 +12,13 @@ export interface IUserLogin {
 
 export interface IUserDecoded {
   id: string;
-  isAdm: boolean;
+}
+
+export interface IUserUpdate {
+  name?: string;
+  number?: string;
+  password?: string;
+  email?: string;
+  id?: string;
+  userId?: string;
 }

@@ -40,9 +40,9 @@ const CreateContactService = async (
     where: {
       id: newContact.id,
     },
-    relations: {
-      user: true,
-    },
+    // relations: {
+    //   user: true,
+    // },
   });
 
   return contact!;
