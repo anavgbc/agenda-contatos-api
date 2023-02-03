@@ -27,6 +27,11 @@ const CreateContactService = async (
     throw new AppError("User not found", 404);
   }
 
+  const contactAlreadyExists = await contactRepository.findOneBy({ number });
+
+  if (contactAlreadyExists) {
+    throw new AppError("This number already exists in your contacts", 409);
+  }
   const newContact = contactRepository.create({
     name,
     email,
@@ -40,9 +45,6 @@ const CreateContactService = async (
     where: {
       id: newContact.id,
     },
-    // relations: {
-    //   user: true,
-    // },
   });
 
   return contact!;
