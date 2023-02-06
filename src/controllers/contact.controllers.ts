@@ -11,7 +11,7 @@ export const createContactController = async (req: Request, res: Response) => {
 
   const createContact = await CreateContactService(userId, data);
 
-  return res.status(201).json({ data: instanceToPlain(createContact) });
+  return res.status(201).json(instanceToPlain(createContact));
 };
 
 export const retrieveContactController = async (
@@ -20,7 +20,7 @@ export const retrieveContactController = async (
 ) => {
   const { id } = req.params;
   const contact = await retrieveContactService(id);
-  return res.json({ data: instanceToPlain(contact) });
+  return res.json(instanceToPlain(contact));
 };
 
 export const updateContactController = async (req: Request, res: Response) => {
@@ -28,7 +28,7 @@ export const updateContactController = async (req: Request, res: Response) => {
   contact.id = req.params.id;
   contact.id_user = req.user.id;
   const updatedContact = await updateContactService(contact);
-  return res.json({ data: updatedContact });
+  return res.json(updatedContact);
 };
 
 export const deleteContactController = async (req: Request, res: Response) => {

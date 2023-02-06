@@ -6,35 +6,38 @@ import AppError from "../../errors/appError";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 
-const createSessionService = async ({
-  email,
-  password,
-}: IUserLogin): Promise<string> => {
+const createSessionService = async ({ email, password }: IUserLogin) => {
   const userRepository = AppDataSource.getRepository(User);
-  const userExists = await userRepository.findOneBy({
-    email,
-  });
-  if (!userExists) {
+
+  const user = await userRepository
+    .findOneBy({
+      email,
+    })
+    .catch((err) => console.log(err));
+
+  console.log(user);
+
+  if (!user) {
     throw new AppError("Invalid email or password", 403);
   }
 
-  const correctPassword = compareSync(password, userExists.password);
+  const correctPassword = compareSync(password, user.password);
   if (!correctPassword) {
     throw new AppError("Invalid email or password", 403);
   }
 
   const token = jwt.sign(
     {
-      id: userExists.id,
+      id: user.id,
     },
     process.env.SECRET_KEY as string,
     {
       expiresIn: "24h",
-      subject: userExists.id,
+      subject: user.id,
     }
   );
 
-  return token;
+  return { token, user };
 };
 
 export default createSessionService;
