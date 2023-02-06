@@ -11,14 +11,7 @@ export const AppDataSource = new DataSource({
   database: process.env.POSTGRES_DB,
   synchronize: false,
   logging: true,
+
   entities: ["src/entities/*.ts"],
   migrations: ["src/migrations/*.ts"],
 });
-
-AppDataSource.initialize()
-  .then(() => {
-    console.log("Data Source initialized");
-  })
-  .catch((err) => {
-    console.error("Error during Data Source initialization", err);
-  });
