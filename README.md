@@ -80,6 +80,8 @@ Esse endpoint tem como propósito o cadastro de um novo usuário, sendo necessá
 }
 ```
 
+💡Número deve possuir 13 caracteres, contando com o código do país e o ddd.
+
 Caso tudo funcione bem, a resposta será:
 
 ```json
