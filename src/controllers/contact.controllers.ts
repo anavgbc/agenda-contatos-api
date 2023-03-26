@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import CreateContactService from "../services/contacts/createContact.service";
 import deleteContactService from "../services/contacts/deleteContact.service";
 import retrieveContactService from "../services/contacts/retrieveContact.service";
+import retrieveFavoritesService from "../services/contacts/retrieveFavorites.service";
 import updateContactService from "../services/contacts/updateContact.service";
 
 export const createContactController = async (req: Request, res: Response) => {
@@ -23,10 +24,23 @@ export const retrieveContactController = async (
   return res.json(instanceToPlain(contact));
 };
 
+export const retrieveFavoritesController = async (
+  req: Request,
+  res: Response
+) => {
+  const userId = req.user.id;
+  console.log(req.route);
+
+  const contacts = await retrieveFavoritesService(userId);
+  return res.json(instanceToPlain(contacts));
+};
+
 export const updateContactController = async (req: Request, res: Response) => {
   const contact = req.body;
+
   contact.id = req.params.id;
   contact.id_user = req.user.id;
+
   const updatedContact = await updateContactService(contact);
   return res.json(updatedContact);
 };

@@ -11,14 +11,6 @@ const CreateContactService = async (
   const contactRepository = AppDataSource.getRepository(Contacts);
   const userRepository = AppDataSource.getRepository(User);
 
-  if (!name && !email) {
-    throw new AppError("Cannot create an empty contact", 403);
-  }
-
-  if (name === "" && email === "") {
-    throw new AppError("Cannot create an empty contact", 403);
-  }
-
   const user = await userRepository.findOneBy({
     id: userId,
   });
@@ -27,11 +19,16 @@ const CreateContactService = async (
     throw new AppError("User not found", 404);
   }
 
+  if (!name && !email) {
+    throw new AppError("Cannot create an empty contact", 403);
+  }
+
   const newContact = contactRepository.create({
     name,
     email,
     number,
     user: user!,
+    favorite: false,
   });
 
   await contactRepository.save(newContact);

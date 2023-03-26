@@ -11,6 +11,7 @@ const updateContactService = async ({
   user,
   id,
   id_user,
+  favorite,
 }: IContactUpdate): Promise<Contacts> => {
   const contactRepository = AppDataSource.getRepository(Contacts);
 
@@ -23,7 +24,6 @@ const updateContactService = async ({
     },
   });
 
-  console.log(findContact[0].user);
   if (!findContact[0]) {
     throw new AppError("Contact not found", 404);
   }
@@ -36,6 +36,7 @@ const updateContactService = async ({
     name,
     email,
     number,
+    favorite,
   });
 
   const contact = await contactRepository.findOneBy({
