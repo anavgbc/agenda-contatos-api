@@ -21,11 +21,6 @@ const createUserService = async ({
     throw new AppError("Email already exists", 409);
   }
 
-  console.log(number.length);
-  if (number.length !== 13) {
-    throw new AppError("Number must have 13 characters", 400);
-  }
-
   const user = userRepository.create({
     name,
     email,
