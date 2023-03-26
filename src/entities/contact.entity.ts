@@ -21,8 +21,11 @@ export class Contacts {
   @CreateDateColumn()
   createdAt: Date;
 
-  @Column({ length: 13 })
+  @Column()
   number: string;
+
+  @Column({ default: false })
+  favorite: boolean;
 
   @ManyToOne(() => User, (user) => user.contacts)
   user: User;

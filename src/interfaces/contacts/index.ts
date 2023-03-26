@@ -14,4 +14,5 @@ export interface IContactUpdate {
   number?: string;
   user?: string;
   id_user?: string;
+  favorite?: boolean;
 }
