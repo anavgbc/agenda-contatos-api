@@ -6,7 +6,7 @@ import { IContactRequest } from "../../interfaces/contacts";
 
 const CreateContactService = async (
   userId: string,
-  { name, email, number }: IContactRequest
+  { firstName, email, number, img, lastName }: IContactRequest
 ): Promise<Contacts> => {
   const contactRepository = AppDataSource.getRepository(Contacts);
   const userRepository = AppDataSource.getRepository(User);
@@ -19,16 +19,23 @@ const CreateContactService = async (
     throw new AppError("User not found", 404);
   }
 
-  if (!name && !email) {
+  if (!firstName && !email) {
     throw new AppError("Cannot create an empty contact", 403);
   }
 
+  if (!img) {
+    img =
+      "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max";
+  }
+
   const newContact = contactRepository.create({
-    name,
+    firstName,
+    lastName,
     email,
     number,
     user: user!,
     favorite: false,
+    img,
   });
 
   await contactRepository.save(newContact);

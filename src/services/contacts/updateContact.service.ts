@@ -4,14 +4,15 @@ import AppError from "../../errors/appError";
 import { IContactUpdate } from "../../interfaces/contacts";
 
 const updateContactService = async ({
-  name,
+  firstName,
+  lastName,
   email,
   number,
-  createdAt,
-  user,
   id,
   id_user,
   favorite,
+  img,
+  note,
 }: IContactUpdate): Promise<Contacts> => {
   const contactRepository = AppDataSource.getRepository(Contacts);
 
@@ -33,10 +34,13 @@ const updateContactService = async ({
   }
 
   await contactRepository.update(findContact[0].id, {
-    name,
+    firstName,
+    lastName,
     email,
     number,
     favorite,
+    img,
+    note,
   });
 
   const contact = await contactRepository.findOneBy({

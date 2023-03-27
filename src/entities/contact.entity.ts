@@ -13,7 +13,10 @@ export class Contacts {
   readonly id: string;
 
   @Column({ length: 60 })
-  name: string;
+  firstName: string;
+
+  @Column({ length: 60, nullable: true })
+  lastName: string;
 
   @Column({ unique: true })
   email: string;
@@ -26,6 +29,12 @@ export class Contacts {
 
   @Column({ default: false })
   favorite: boolean;
+
+  @Column({ nullable: true })
+  img: string;
+
+  @Column({ nullable: true })
+  note: string;
 
   @ManyToOne(() => User, (user) => user.contacts)
   user: User;
