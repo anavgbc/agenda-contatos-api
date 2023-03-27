@@ -5,7 +5,6 @@ import {
   CreateDateColumn,
   OneToMany,
 } from "typeorm";
-import { v4 as uuid } from "uuid";
 import { Exclude } from "class-transformer";
 import { Contacts } from "./contact.entity";
 
