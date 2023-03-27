@@ -1,8 +1,10 @@
 export interface IUserRequest {
-  name: string;
+  firstName: string;
+  lastName?: string;
   email: string;
   password: string;
   number: string;
+  img?: string;
 }
 
 export interface IUserLogin {
@@ -15,10 +17,12 @@ export interface IUserDecoded {
 }
 
 export interface IUserUpdate {
-  name?: string;
+  firstName?: string;
+  lastName?: string;
   number?: string;
   password?: string;
   email?: string;
   id?: string;
   userId?: string;
+  img?: string;
 }

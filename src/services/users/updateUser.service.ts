@@ -5,14 +5,15 @@ import { User } from "../../entities/user.entity";
 import AppError from "../../errors/appError";
 import { IUserUpdate } from "../../interfaces/users";
 const updateUserService = async ({
-  name,
+  firstName,
+  lastName,
   email,
   password,
   id,
   userId,
+  img,
 }: IUserUpdate) => {
   const userRepository = AppDataSource.getRepository(User);
-  const contactRepository = AppDataSource.getRepository(Contacts);
 
   const findUser = await userRepository.findOneBy({
     id: userId,
@@ -27,9 +28,11 @@ const updateUserService = async ({
   }
 
   await userRepository.update(findUser.id, {
-    name,
+    firstName,
+    lastName,
     email,
     password: password ? await hash(password, 10) : findUser.password,
+    img,
   });
 
   const user = await userRepository.find({

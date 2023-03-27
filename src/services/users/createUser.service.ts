@@ -7,10 +7,12 @@ import { Contacts } from "../../entities/contact.entity";
 import { IUserRequest } from "../../interfaces/users";
 
 const createUserService = async ({
-  name,
+  firstName,
+  lastName,
   email,
   password,
   number,
+  img,
 }: IUserRequest) => {
   const userRepository = AppDataSource.getRepository(User);
   const contactRepository = AppDataSource.getRepository(Contacts);
@@ -21,11 +23,18 @@ const createUserService = async ({
     throw new AppError("Email already exists", 409);
   }
 
+  if (!img) {
+    img =
+      "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max";
+  }
+
   const user = userRepository.create({
-    name,
+    firstName,
+    lastName,
     email,
     password: await hash(password, 10),
     number,
+    img,
   });
 
   await userRepository.save(user);

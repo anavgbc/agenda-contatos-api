@@ -15,7 +15,10 @@ export class User {
   readonly id: string;
 
   @Column({ length: 60 })
-  name: string;
+  firstName: string;
+
+  @Column({ length: 60, nullable: true })
+  lastName: string;
 
   @Column({ unique: true })
   email: string;
@@ -27,8 +30,11 @@ export class User {
   @CreateDateColumn()
   createdAt: Date;
 
-  @Column({ length: 13 })
+  @Column()
   number: string;
+
+  @Column({ nullable: true })
+  img: string;
 
   @OneToMany(() => Contacts, (contacts) => contacts.user, {
     cascade: true,
